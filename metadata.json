@@ -1,0 +1,6 @@
+{
+  "uuid": "dualbatteries@trent",
+  "name": "Dual Batteries",
+  "icon": "cs-power",
+  "description": "Display Charge Info for Dual Batteries"
+}
