@@ -25,6 +25,13 @@ MyApplet.prototype = {
             this.appletPath = metadata.path;
             UUID = metadata.uuid;
 
+            this.settings.bind("show-bat0-percent","show_bat0_percent");
+            this.settings.bind("show-bat0-capacity","show_bat0_capacity");
+            this.settings.bind("show-bat0-estimated-time-remaining","show_bat0_estimated_time_remaining");
+            this.settings.bind("show-bat1-percent","show_bat1_percent");
+            this.settings.bind("show-bat1-capacity","show_bat1_capacity");
+            this.settings.bind("show-bat1-estimated-time-remaining","show_bat1_estimated_time_remaining");
+
             this.applet_running = true; //** New to allow applet to be fully stopped when removed from panel
             this._main_refresh_loop();   // This starts the MainLoop timer loop
         }
@@ -83,17 +90,70 @@ MyApplet.prototype = {
         }
     },
 
+    _show_bat0: function() {
+        if (this.show_bat0_percent || this.show_bat0_capacity || this.show_bat0_estimated_time_remaining) {
+            return "BAT0 - "
+        } else { return "" };
+    },
+
+    _show_bat0_percent: function(remaining_percent) {
+        if (this.show_bat0_percent) {
+            return remaining_percent + "% "
+        } else { return "" };
+    },
+
+    _show_bat0_capacity: function() {
+        if (this.show_bat0_capacity) {
+            return this._get_battery_capacity("bat0") + "Wh "
+        } else { return "" };
+    },
+
+    _show_bat0_estimated_time_remaining: function() {
+        if (this.show_bat0_estimated_time_remaining) {
+            return this._get_time_to_empty("bat0") + "HRS "
+        } else { return "" };
+    },
+
+    _show_bat1: function() {
+        if (this.show_bat1_percent || this.show_bat1_capacity || this.show_bat1_estimated_time_remaining) {
+            return "BAT1 - "
+        } else { return "" };
+    },
+
+    _show_bat1_percent: function(remaining_percent) {
+        if (this.show_bat1_percent) {
+            return remaining_percent + "% "
+        } else { return "" };
+    },
+
+    _show_bat1_capacity: function() {
+        if (this.show_bat1_capacity) {
+            return this._get_battery_capacity("bat1") + "Wh "
+        } else { return "" };
+    },
+
+    _show_bat1_estimated_time_remaining: function() {
+        if (this.show_bat1_estimated_time_remaining) {
+            return this._get_time_to_empty("bat1") + "HRS "
+        } else { return "" };
+    },
+
     _update_applet: function() {
         if (this._has_two_batteries() === true) {
-            
+
             this._battery0_charge_percent = this._get_battery_charge_percent("bat0")
             this._battery1_charge_percent = this._get_battery_charge_percent("bat1")
-            this._battery0_time_to_empty = this._get_time_to_empty("bat0")
-            this._battery1_time_to_empty = this._get_time_to_empty("bat1")
-            this._battery0_capacity = this._get_battery_capacity("bat0")
-            this._battery1_capacity = this._get_battery_capacity("bat1")
-        
-            this._icon_string = "BAT0 - " + this._battery0_charge_percent + "%" + this._battery0_capacity + "Wh - ETR" + this._battery0_time_to_empty + ", BAT1 - " + this._battery1_charge_percent + "%" + this._battery1_capacity + "Wh - ETR" + this._battery1_time_to_empty
+
+            this._icon_string = ""
+            this._icon_string += this._show_bat0();
+            this._icon_string += this._show_bat0_percent(this._battery0_charge_percent);
+            this._icon_string += this._show_bat0_capacity();
+            this._icon_string += this._show_bat0_estimated_time_remaining();
+
+            this._icon_string += this._show_bat1();
+            this._icon_string += this._show_bat1_percent(this._battery1_charge_percent);
+            this._icon_string += this._show_bat1_capacity();
+            this._icon_string += this._show_bat1_estimated_time_remaining();
             this.set_applet_label(this._icon_string)
 
             if (parseInt(this._battery0_charge_percent) >= parseInt(this._battery1_charge_percent)) {
@@ -104,19 +164,20 @@ MyApplet.prototype = {
 
         } else {
             this._battery0_charge_percent = this._get_battery_charge_percent("bat0")
-            this._battery0_time_to_empty = this._get_time_to_empty("bat0")
-            this._battery0_capacity = this._get_battery_capacity("bat0")
-            
-            this._icon_string = "BAT0 - " + this._battery0_charge_percent + "%" + this._battery0_capacity + "Wh - ETR" + this._battery0_time_to_empty + ", BAT1: MISSING?"
+ 
+            this._icon_string = ""
+            this._icon_string += this._show_bat0();
+            this._icon_string += this._show_bat0_percent(this._battery0_charge_percent);
+            this._icon_string += this._show_bat0_capacity();
+            this._icon_string += this._show_bat0_estimated_time_remaining();
             this.set_applet_label(this._icon_string)
-            this.set_applet_icon_symbolic_name("battery-full-symbolic");
+            this.set_applet_icon_symbolic_name(this._battery_icon_to_display("bat0"));
         }
     },
 
     _main_refresh_loop: function() {
         this._update_applet();
-        // global.log("Hello")
-        if (this.applet_running == true) {
+        if (this.applet_running === true) {
                 Mainloop.timeout_add_seconds(10, Lang.bind(this, this._main_refresh_loop));
             }
     },

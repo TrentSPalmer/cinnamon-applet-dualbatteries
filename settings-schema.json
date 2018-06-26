@@ -1,13 +1,38 @@
 {
-    "labelinfo": {
-        "type": "combobox",
-        "description": "Display",
-        "default": "nothing",
-        "options" : {
-            "Show percentage": "percentage",
-            "Show time remaining": "time",
-            "Show percentage and time remaining": "percentage_time",
-            "Hide label": "nothing"
-        }
+    "show-bat0-percent": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT0 Percent",
+        "tooltip": "default"
+    },
+    "show-bat0-capacity": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT0 Capacity",
+        "tooltip": "default"
+    },
+    "show-bat0-estimated-time-remaining": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT0 Estimated Time Remaining",
+        "tooltip": "default"
+    },
+    "show-bat1-percent": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT1 Percent",
+        "tooltip": "default"
+    },
+    "show-bat1-capacity": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT1 Capacity",
+        "tooltip": "default"
+    },
+    "show-bat1-estimated-time-remaining": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT1 Estimated Time Remaining",
+        "tooltip": "default"
     }
 }
