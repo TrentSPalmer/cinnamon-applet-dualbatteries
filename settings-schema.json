@@ -1,4 +1,10 @@
 {
+    "show-bat0-rate": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT0 Discharge Rate",
+        "tooltip": "default"
+    },
     "show-bat0-percent": {
         "type": "switch",
         "default": "false",
@@ -17,6 +23,12 @@
         "description": "Show BAT0 Estimated Time Remaining",
         "tooltip": "default"
     },
+    "show-bat1-rate": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show BAT1 Discharge Rate",
+        "tooltip": "default"
+    },
     "show-bat1-percent": {
         "type": "switch",
         "default": "false",
@@ -33,6 +45,30 @@
         "type": "switch",
         "default": "false",
         "description": "Show BAT1 Estimated Time Remaining",
+        "tooltip": "default"
+    },
+    "show-display-battery-rate": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show COMBINED Discharge Rate",
+        "tooltip": "default"
+    },
+    "show-display-battery-percent": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show COMBINED Percent",
+        "tooltip": "default"
+    },
+    "show-display-battery-capacity": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show COMBINED Capacity",
+        "tooltip": "default"
+    },
+    "show-display-battery-estimated-time-remaining": {
+        "type": "switch",
+        "default": "false",
+        "description": "Show COMBINED Estimated Time Remaining",
         "tooltip": "default"
     }
 }
